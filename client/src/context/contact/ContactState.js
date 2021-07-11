@@ -48,10 +48,7 @@ const ContactState = props => {
   const addContact = contact => {
     contact.id = v4()
     dispatch({ type: ADD_CONTACT, payload: contact })
-    // console.log('state.current');
     if (state.filter) {
-      // dispatch({ type: CLEAR_FILTER })
-      // console.log(`state.filter ${state.filtered}`);
       dispatch({ type: FILTER_CONTACTS, payload: state.filter })
     }
   }
@@ -74,6 +71,9 @@ const ContactState = props => {
   // Update Contact
   const updateContact = contact => {
     dispatch({ type: UPDATE_CONTACT, payload: contact })
+    if (state.filter) {
+      dispatch({ type: FILTER_CONTACTS, payload: state.filter })
+    }
   }
 
   // Filter Contacts
