@@ -40,6 +40,7 @@ const contactReducer = (state, action) => {
     case FILTER_CONTACTS:
       return {
         ...state,
+        filter: action.payload,
         filtered: state.contacts.filter((contact) => {
           const regex = new RegExp(`${action.payload}`, 'gi')
           return contact.name.match(regex) || contact.email.match(regex)
@@ -48,6 +49,7 @@ const contactReducer = (state, action) => {
     case CLEAR_FILTER:
       return {
         ...state,
+        filter: null,
         filtered: null
       }
     default:

@@ -38,7 +38,8 @@ const ContactState = props => {
       },
     ],
     current: null,
-    filtered: null
+    filtered: null,
+    filter: null
   }
 
   const [state, dispatch] = useReducer(contactReducer, initialState)
@@ -47,6 +48,12 @@ const ContactState = props => {
   const addContact = contact => {
     contact.id = v4()
     dispatch({ type: ADD_CONTACT, payload: contact })
+    // console.log('state.current');
+    if (state.filter) {
+      // dispatch({ type: CLEAR_FILTER })
+      // console.log(`state.filter ${state.filtered}`);
+      dispatch({ type: FILTER_CONTACTS, payload: state.filter })
+    }
   }
 
   // Delete Contact
@@ -85,6 +92,7 @@ const ContactState = props => {
         contacts: state.contacts,
         current: state.current,
         filtered: state.filtered,
+        filter: state.filter,
         addContact,
         deleteContact,
         setCurrent,
