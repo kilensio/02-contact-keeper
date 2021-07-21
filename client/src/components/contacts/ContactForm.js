@@ -6,14 +6,7 @@ const ContactForm = () => {
 
   const { addContact, updateContact, current, clearCurrent } = contactContext
 
-  useEffect(() => {
-    setContact(current ? current : {
-      name: '',
-      email: '',
-      phone: '',
-      type: 'personal'
-    })
-  }, [contactContext, current])
+  const [empty, setEmpty] = useState(true)
 
   const [contact, setContact] = useState({
     name: '',
@@ -23,6 +16,23 @@ const ContactForm = () => {
   })  
 
   const { name, email, phone, type } = contact
+
+  useEffect(() => {
+    if (empty && !current) setContact({
+      name: '',
+      email: '',
+      phone: '',
+      type: 'personal'
+    }) 
+    else if (current) setContact(current)
+  }, [empty, current])
+
+  useEffect(() => {
+    setEmpty(contact.name === '' &&
+             contact.email === '' &&
+             contact.phone === '' &&
+             contact.type === 'personal')
+  }, [contact])
 
   const onChange = e => setContact({
     ...contact, [e.target.name]: e.target.value
@@ -38,6 +48,7 @@ const ContactForm = () => {
 
   const clearAll = () => {
     clearCurrent()
+    setEmpty(true)
   }
 
   return (
@@ -74,7 +85,7 @@ const ContactForm = () => {
           className="btn btn-primary btn-block" 
         />
       </div>
-      {current && <div>
+      {!empty && <div>
         <button className="btn btn-light btn-block" onClick={clearAll}>Clear</button>
       </div>}
     </form>
