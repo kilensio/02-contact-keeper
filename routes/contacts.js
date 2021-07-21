@@ -43,7 +43,7 @@ router.post('/', auth,
       
       const contact = await newContact.save()
 
-      res.json({ contact })
+      res.json(contact)
     } catch (err) {
       console.error(err.message)
       res.status(500).send('Server Error')
@@ -79,7 +79,7 @@ router.put('/:id', auth, async (req, res) => {
       { new: true }
     )
 
-    res.json({ contact })
+    res.json(contact)
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error')

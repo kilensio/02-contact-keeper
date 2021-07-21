@@ -2,7 +2,7 @@ import React, { Fragment, useContext } from 'react'
 import PropTypes from 'prop-types'
 import ContactContext from '../../context/contact/contactContext'
 
-const MarkedFilter = ({ text, filter}) => {
+const MarkedFilter = ({ text, filter }) => {
   const regFilter = new RegExp(`${filter}`, 'gi')
   const result = []
   let matched = Array.from(text.matchAll(regFilter))
@@ -28,7 +28,7 @@ const ContactItem = ({ contact, filter = '' }) => {
   const contactContext = useContext(ContactContext)
   const { deleteContact, setCurrent, clearCurrent } = contactContext
 
-  const { id, name, email, phone, type } = contact
+  const { _id: id, name, email, phone, type } = contact
 
   const onDelete = () => {
     deleteContact(id)
